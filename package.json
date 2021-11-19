@@ -1,6 +1,6 @@
 {
   "name": "vuepress-plugin-mermaid-next",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "description": "A Vuepress-next Plugin for Mermaid",
   "main": "lib/node/index.js",
   "directories": {
@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "tsc -b tsconfig.build.json",
-    "test": "yalc publish"
+    "test:local": "tsc -b tsconfig.build.json && yalc publish"
   },
   "homepage": "https://github.com/LiHowe/vuepress-plugin-mermaid",
   "repository": {
@@ -32,7 +32,6 @@
   "license": "MIT",
   "packageManager": "yarn@3.0.2",
   "dependencies": {
-    "@types/mermaid": "^8.2.7",
     "@vuepress/client": "^2.0.0-alpha.1",
     "@vuepress/core": "^1.8.2",
     "@vuepress/utils": "^2.0.0-alpha.1",

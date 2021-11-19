@@ -1,8 +1,15 @@
-import { defineComponent } from 'vue'
-import { htmlUnescape } from '@vuepress/shared'
-import { ref, onBeforeMount } from 'vue'
+import { defineComponent, h } from 'vue'
+import { onMounted } from 'vue'
 import { nanoid } from 'nanoid'
-import type { Mermaid } from 'mermaid'
+
+interface Mermaid {
+  init: any
+}
+declare global {
+  interface Window {
+    __mermaid: Mermaid
+  }
+}
 
 export default defineComponent({
   name: 'Mermaid',
@@ -11,35 +18,48 @@ export default defineComponent({
       type: String,
       required: true,
       default: ''
+    },
+    config: {
+      type: String,
+      defualt: ''
     }
   },
-  setup(prop) {
+  setup(props) {
+    const id = 'mermaid_' + nanoid(4)
+    let configObj = {
+      startOnLoad: false
+    }
+    try {
+      configObj = JSON.parse(props.config?.replace(/\'/g, '\"') || '')
+    } catch (e) {
+      console.error(e)
+    }
+
     function getMermaid (): Promise<Mermaid> {
       return new Promise(resolve => {
+        if (window.__mermaid) {
+          resolve(window.__mermaid)
+          return
+        }
         import('mermaid').then(({ default: Mermaid }) => {
-          Mermaid.mermaidAPI.initialize({
-            startOnLoad: false,
-            theme: 'default',
-          })
+          window && (window.__mermaid = Mermaid)
+          Mermaid.mermaidAPI.initialize(configObj)
           resolve(Mermaid)
         })
       })
     }
 
-    const formattedCode = ref('')
-    
-    onBeforeMount(async () => {
-      const Mermaid = await getMermaid()
-      const content = prop.code
-      const formatted = htmlUnescape(content)
+    onMounted(async () => {
+      const mermaid = await getMermaid()
       try {
-        Mermaid.mermaidAPI.render('mermaid_' + nanoid(4), formatted, svgCode => {
-          formattedCode.value = svgCode
-        })
+        mermaid.init(undefined, `#${id}`)
       } catch (err) {
-        formattedCode.value = `<pre>${err}</pre>`
+        console.error(err)
       }
     })
-    return () => `<div class="mermaid-wrapper">${formattedCode}</div>`
+    return () => h('div', {
+      class: 'mermaid',
+      id
+    }, props.code)
   }
 })

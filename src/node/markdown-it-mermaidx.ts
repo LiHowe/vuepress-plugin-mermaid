@@ -5,9 +5,13 @@ export default (md: any): void => {
   md.renderer.rules.fence = (...args: any) => {
     const [tokens, idx] = args
     const { info: languageType, content } = tokens[idx]
-    if (!content) return ''
-    if (languageType.trim() === 'mermaid') {
-      return `<Mermaid :code="${htmlEscape(content.trim())}"></Mermaid>`
+    if (content && languageType.trim() === 'mermaid') {
+      return `
+      <Mermaid 
+      :code="\`${htmlEscape(content.trim())}\`"
+      :config="\`${JSON.stringify(md.__mermaidConfig).replace(/\"/g, '\'')}\`"
+      />
+      `
     }
     return `${originFence(...args)}`
   }
