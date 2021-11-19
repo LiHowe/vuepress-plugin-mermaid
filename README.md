@@ -1,4 +1,4 @@
-# vuepress-plugin-mermaid
+# vuepress-plugin-mermaid-next
 
 > This plugin is only for `vuepress-next`
 
@@ -6,8 +6,16 @@
 
 ### Install
 
++ npm
++ 
 ```shell
-npm install vuepress-plugin-mermaid
+npm install vuepress-plugin-mermaid-next
+```
+
++ yarn
++ 
+```shell
+yarn add vuepress-plugin-mermaid-next
 ```
 
 ### `.vuepress/config.ts` or (`config.js`)
