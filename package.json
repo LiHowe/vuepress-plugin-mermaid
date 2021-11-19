@@ -1,6 +1,6 @@
 {
   "name": "vuepress-plugin-mermaid-next",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A Vuepress-next Plugin for Mermaid",
   "main": "lib/node/index.js",
   "directories": {
