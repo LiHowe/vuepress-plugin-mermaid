@@ -1,16 +1,11 @@
 import { defineComponent, h } from 'vue'
-import { onMounted } from 'vue'
+import { onMounted, onUpdated } from 'vue'
 import { nanoid } from 'nanoid'
+import Mermaid from 'mermaid'
 
 interface Mermaid {
   init: any
 }
-declare global {
-  interface Window {
-    __mermaid: Mermaid
-  }
-}
-
 export default defineComponent({
   name: 'Mermaid',
   props: {
@@ -27,39 +22,33 @@ export default defineComponent({
   setup(props) {
     const id = 'mermaid_' + nanoid(4)
     let configObj = {
-      startOnLoad: false
+      startOnLoad: false,
+      securityLevel: 'loose'
     }
     try {
       configObj = JSON.parse(props.config?.replace(/\'/g, '\"') || '{}')
     } catch (e) {
       console.error(e)
     }
-
-    function getMermaid (): Promise<Mermaid> {
-      return new Promise(resolve => {
-        if (window.__mermaid) {
-          resolve(window.__mermaid)
-          return
-        }
-        import('mermaid').then(({ default: Mermaid }) => {
-          window && (window.__mermaid = Mermaid)
-          Mermaid.mermaidAPI.initialize(configObj)
-          resolve(Mermaid)
-        })
+    const render = async () => {
+      Mermaid.mermaidAPI.render(`mermaid_${nanoid(4)}`, props.code, svgCode => {
+        document.querySelector(`#${id}`)!.innerHTML = svgCode
       })
     }
+    
+    Mermaid.mermaidAPI.initialize(configObj)
+    // dev develop
+    // @ts-ignore
+    if (__VUEPRESS_DEV__) onUpdated(render)
 
-    onMounted(async () => {
-      const mermaid = await getMermaid()
-      try {
-        mermaid.init(undefined, `#${id}`)
-      } catch (err) {
-        console.error(err)
-      }
-    })
+    onMounted(render)
     return () => h('div', {
-      class: 'mermaid',
-      id
-    }, props.code)
+      class: 'mermaid-wrapper'
+    }, [
+      h('div', {
+        id,
+        class: 'mermaid-svg-wrapper'
+      }, props.code)
+    ])
   }
 })
