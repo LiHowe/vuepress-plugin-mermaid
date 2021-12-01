@@ -1,11 +1,10 @@
-# vuepress-plugin-mermaid
+# vuepress-plugin-mermaid-next
 
 > This plugin is only for `vuepress-next`
 
 ## Usage
 
 ### Install
-
 
 ```shell
 # use npm
