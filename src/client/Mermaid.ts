@@ -1,12 +1,7 @@
-import { defineComponent, h } from 'vue'
-import { onMounted, onUpdated } from 'vue'
+import { defineCustomElement, h, onBeforeMount, onMounted, onUpdated, ref } from 'vue'
 import { nanoid } from 'nanoid'
-import Mermaid from 'mermaid'
 
-interface Mermaid {
-  init: any
-}
-export default defineComponent({
+export default defineCustomElement({
   name: 'Mermaid',
   props: {
     code: {
@@ -16,11 +11,12 @@ export default defineComponent({
     },
     config: {
       type: String,
-      defualt: ''
+      default: ''
     }
   },
   setup(props) {
     const id = 'mermaid_' + nanoid(4)
+    const el = ref<HTMLDivElement>()
     let configObj = {
       startOnLoad: false,
       securityLevel: 'loose'
@@ -30,25 +26,27 @@ export default defineComponent({
     } catch (e) {
       console.error(e)
     }
+    let Mermaid
+
     const render = async () => {
-      Mermaid.mermaidAPI.render(`mermaid_${nanoid(4)}`, props.code, svgCode => {
-        document.querySelector(`#${id}`)!.innerHTML = svgCode
+      if (!Mermaid) {
+        Mermaid = (await import('mermaid')).default
+        Mermaid = Mermaid
+        Mermaid.mermaidAPI.initialize(configObj)
+      }
+      Mermaid.mermaidAPI.render(id, props.code, svgCode => {
+        el.value!.innerHTML = svgCode
       })
     }
-    
-    Mermaid.mermaidAPI.initialize(configObj)
-    // dev develop
     // @ts-ignore
     if (__VUEPRESS_DEV__) onUpdated(render)
 
-    onMounted(render)
-    return () => h('div', {
-      class: 'mermaid-wrapper'
-    }, [
+    onBeforeMount(render)
+    return () =>
       h('div', {
         id,
-        class: 'mermaid-svg-wrapper'
+        ref: el,
+        class: ['mermaid-svg-wrapper', 'mermaid']
       }, props.code)
-    ])
   }
 })

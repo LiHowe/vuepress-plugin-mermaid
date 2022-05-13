@@ -13,6 +13,7 @@
     "skipLibCheck": true,
     "sourceMap": false,
     "strict": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "types": ["@vuepress/client/types"]
   }
 }
