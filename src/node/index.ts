@@ -1,11 +1,15 @@
 import MermaidPlugin from './markdown-it-mermaidx'
-import { path } from '@vuepress/utils'
+import { getDirname, path } from '@vuepress/utils'
 
-export default (opt: Record<string, string | number | boolean> = {}) => ({
-  name: 'vuepress-plugin-markdown-mermaid',
-  clientAppEnhanceFiles: path.resolve(__dirname, '../client/enhance.js'),
+const __dirname = getDirname(import.meta.url)
+
+export const mermaidPlugin = (opt: Record<string, string | number | boolean> = {}) => ({
+  name: 'vuepress-plugin-mermaid-next',
+  clientConfigFile: path.resolve(__dirname, '../client/config.js'),
   extendsMarkdown: (md: any) => {
     md.__mermaidConfig = opt
     md.use(MermaidPlugin)
   }
 })
+
+export default mermaidPlugin

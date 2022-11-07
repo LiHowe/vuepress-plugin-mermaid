@@ -10,9 +10,9 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc -b tsconfig.build.json",
+    "build": "tsc -b tsconfig.json",
     "b": "vite build",
-    "test:local": "tsc -b tsconfig.build.json && yalc publish",
+    "test:local": "npm run build && yalc publish",
     "release": "standard-version",
     "dev": "vuepress dev docs"
   },
@@ -41,13 +41,15 @@
     "@vuepress/client": "^2.0.0-beta.45",
     "@vuepress/core": "^2.0.0-beta.51",
     "@vuepress/utils": "^2.0.0-alpha.1",
-    "@ziho/suitcase": "^0.0.9",
     "mermaid": "^9.2.0",
+    "nanoid": "^4.0.0",
     "vue": "next"
   },
   "devDependencies": {
+    "@types/node": "^18.11.9",
     "standard-version": "^9.3.2",
-    "typescript": "^4.5.2",
+    "tsconfig-vuepress": "^4.0.0",
+    "typescript": "^4.8.4",
     "vite": "^3.1.1"
   },
   "peerDependencies": {

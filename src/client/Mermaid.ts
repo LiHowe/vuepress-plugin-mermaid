@@ -30,7 +30,6 @@ export default defineComponent({
     }
     // let Mermaid
     const Mermaid = getCurrentInstance()?.appContext.config.globalProperties.$mermaid
-    console.log(Mermaid)
     const render = async () => {
       if (!Mermaid) {
         Mermaid.mermaidAPI.initialize(configObj)
