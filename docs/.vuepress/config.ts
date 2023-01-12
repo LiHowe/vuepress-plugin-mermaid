@@ -1,4 +1,4 @@
-import mermaidPlugin from '../../src/node/index'
+import mermaidPlugin from '../../lib/node/index'
 import { defineUserConfig } from 'vuepress'
 
 export default defineUserConfig({

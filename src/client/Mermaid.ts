@@ -1,5 +1,11 @@
-import { defineComponent, getCurrentInstance, h, onBeforeMount, onMounted, onUpdated, ref } from 'vue'
+import { defineComponent, h, onBeforeMount, ref } from 'vue'
 import { nanoid } from 'nanoid'
+
+declare global {
+  interface Window {
+    _Mermaid: any
+  }
+}
 
 export default defineComponent({
   name: 'Mermaid',
@@ -28,23 +34,25 @@ export default defineComponent({
     } catch (e) {
       console.error(e)
     }
-    // let Mermaid
-    const Mermaid = getCurrentInstance()?.appContext.config.globalProperties.$mermaid
     const render = async () => {
-      if (!Mermaid) {
-        Mermaid.mermaidAPI.initialize(configObj)
+      let Mermaid = window._Mermaid
+      try {
+        if (!Mermaid) {
+          Mermaid = window._Mermaid = (await import('mermaid')).default
+          Mermaid.mermaidAPI.initialize(configObj)
+        }
+        await Mermaid.mermaidAPI.render(id, props.code, (svgCode, bindFunctions) => {
+          content.value = svgCode
+        })
+        // @ts-ignore
+      } catch (e) {
+        console.error(e)
       }
-      Mermaid.mermaidAPI.render(id, props.code, svgCode => {
-        content.value = svgCode
-      })
     }
-    // @ts-ignore
-    if (__VUEPRESS_DEV__) onUpdated(render)
-    
+
     onBeforeMount(render)
     return () =>
       h('div', {
-        id,
         ref: el,
         class: ['mermaid-svg-wrapper', 'mermaid'],
         innerHTML: content.value

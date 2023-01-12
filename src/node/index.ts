@@ -1,4 +1,4 @@
-import MermaidPlugin from './markdown-it-mermaidx'
+import MermaidPlugin from './markdown-it-mermaidx.js'
 import { getDirname, path } from '@vuepress/utils'
 
 const __dirname = getDirname(import.meta.url)
