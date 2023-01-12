@@ -1,5 +1,7 @@
-import { defineComponent, h, onBeforeMount, ref } from 'vue'
+import { defineComponent, h, onBeforeUnmount, onMounted, ref } from 'vue'
 import { nanoid } from 'nanoid'
+import Mermaid from 'mermaid'
+// import type { MermaidConfig } from 'mermaid'
 
 declare global {
   interface Window {
@@ -20,7 +22,7 @@ export default defineComponent({
       default: ''
     }
   },
-  setup(props, context) {
+  setup(props) {
     const id = 'mermaid_' + nanoid(4)
     const el = ref<HTMLDivElement>()
     const content = ref('')
@@ -29,28 +31,41 @@ export default defineComponent({
       startOnLoad: false,
       securityLevel: 'loose'
     }
+    // parse the config string
     try {
       configObj = JSON.parse(props.config?.replace(/\'/g, '\"') || '{}')
     } catch (e) {
       console.error(e)
     }
+
+    let mo: MutationObserver
+
     const render = async () => {
-      let Mermaid = window._Mermaid
       try {
-        if (!Mermaid) {
-          Mermaid = window._Mermaid = (await import('mermaid')).default
-          Mermaid.mermaidAPI.initialize(configObj)
-        }
-        await Mermaid.mermaidAPI.render(id, props.code, (svgCode, bindFunctions) => {
-          content.value = svgCode
+        const isDark = document.documentElement.classList.contains('dark')
+        Mermaid.mermaidAPI.initialize({
+          ...configObj,
+          // @ts-ignore
+          theme: configObj.theme ?? isDark ? 'dark' : 'default'
         })
-        // @ts-ignore
+        content.value = await Mermaid.mermaidAPI.renderAsync(id, props.code)
       } catch (e) {
         console.error(e)
       }
     }
 
-    onBeforeMount(render)
+    onMounted(async () => {
+      await render()
+      mo = new MutationObserver((record, ob) => {
+        render()
+      })
+      mo.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class']
+      })
+    })
+    onBeforeUnmount(() => mo.disconnect())
+
     return () =>
       h('div', {
         ref: el,
