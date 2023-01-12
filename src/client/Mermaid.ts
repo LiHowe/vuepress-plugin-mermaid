@@ -1,7 +1,13 @@
-import { defineCustomElement, h, onBeforeMount, onMounted, onUpdated, ref } from 'vue'
+import { defineComponent, h, onBeforeMount, ref } from 'vue'
 import { nanoid } from 'nanoid'
 
-export default defineCustomElement({
+declare global {
+  interface Window {
+    _Mermaid: any
+  }
+}
+
+export default defineComponent({
   name: 'Mermaid',
   props: {
     code: {
@@ -14,9 +20,11 @@ export default defineCustomElement({
       default: ''
     }
   },
-  setup(props) {
+  setup(props, context) {
     const id = 'mermaid_' + nanoid(4)
     const el = ref<HTMLDivElement>()
+    const content = ref('')
+
     let configObj = {
       startOnLoad: false,
       securityLevel: 'loose'
@@ -26,27 +34,28 @@ export default defineCustomElement({
     } catch (e) {
       console.error(e)
     }
-    let Mermaid
-
     const render = async () => {
-      if (!Mermaid) {
-        Mermaid = (await import('mermaid')).default
-        Mermaid = Mermaid
-        Mermaid.mermaidAPI.initialize(configObj)
+      let Mermaid = window._Mermaid
+      try {
+        if (!Mermaid) {
+          Mermaid = window._Mermaid = (await import('mermaid')).default
+          Mermaid.mermaidAPI.initialize(configObj)
+        }
+        await Mermaid.mermaidAPI.render(id, props.code, (svgCode, bindFunctions) => {
+          content.value = svgCode
+        })
+        // @ts-ignore
+      } catch (e) {
+        console.error(e)
       }
-      Mermaid.mermaidAPI.render(id, props.code, svgCode => {
-        el.value!.innerHTML = svgCode
-      })
     }
-    // @ts-ignore
-    if (__VUEPRESS_DEV__) onUpdated(render)
 
     onBeforeMount(render)
     return () =>
       h('div', {
-        id,
         ref: el,
-        class: ['mermaid-svg-wrapper', 'mermaid']
-      }, props.code)
+        class: ['mermaid-svg-wrapper', 'mermaid'],
+        innerHTML: content.value
+      })
   }
 })

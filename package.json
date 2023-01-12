@@ -1,18 +1,28 @@
 {
   "name": "vuepress-plugin-mermaid-next",
-  "version": "0.1.7",
+  "version": "0.1.11-beta.0",
   "description": "A Mermaid plugin for vuepress-next",
-  "main": "lib/node/index.js",
+  "main": "./lib/node/index.js",
   "directories": {
     "lib": "lib"
   },
   "files": [
     "lib"
   ],
+  "type": "module",
   "scripts": {
-    "build": "tsc -b tsconfig.build.json",
-    "test:local": "tsc -b tsconfig.build.json && yalc publish"
+    "build": "tsc -b tsconfig.json",
+    "b": "vite build",
+    "test:local": "npm run build && yalc publish",
+    "release": "standard-version",
+    "dev": "vuepress dev docs"
   },
+  "exports": {
+    ".": "./lib/node/index.js",
+    "./client": "./lib/client/index.js",
+    "./package.json": "./package.json"
+  },
+  "types": "./lib/node/index.d.ts",
   "homepage": "https://github.com/LiHowe/vuepress-plugin-mermaid",
   "repository": {
     "type": "git",
@@ -28,15 +38,29 @@
     "vuepress-next",
     "mermaid"
   ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
   "author": "LiHowe <howe.personal@gmail.com>",
   "license": "MIT",
   "packageManager": "yarn@3.0.2",
   "dependencies": {
-    "@vuepress/client": "^2.0.0-alpha.1",
-    "@vuepress/core": "^1.8.2",
+    "@vuepress/client": "^2.0.0-beta.45",
+    "@vuepress/core": "^2.0.0-beta.51",
     "@vuepress/utils": "^2.0.0-alpha.1",
-    "mermaid": "^8.13.3",
-    "typescript": "^4.5.2",
+    "nanoid": "^4.0.0",
     "vue": "next"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "standard-version": "^9.3.2",
+    "tsconfig-vuepress": "^4.0.0",
+    "typescript": "^4.8.4",
+    "vite": "^3.1.1"
+  },
+  "peerDependencies": {
+    "vuepress": "^2.0.0-beta.53",
+    "mermaid": "^9.2.0"
   }
 }

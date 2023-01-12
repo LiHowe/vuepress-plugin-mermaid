@@ -1,19 +1,14 @@
 {
+  "extends": "tsconfig-vuepress/base.json",
   "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "declarationMap": false,
-    "target": "ESNEXT",
-    "lib": ["DOM", "ESNEXT"],
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "lib": ["DOM", "ES2020"],
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "noEmitOnError": true,
     "noImplicitAny": false,
-    "resolveJsonModule": true,
     "skipLibCheck": true,
-    "sourceMap": false,
-    "strict": true,
-    "strictNullChecks": true,
-    "types": ["@vuepress/client/types"]
+    "target": "ES2020",
+    "composite": true
   }
 }
