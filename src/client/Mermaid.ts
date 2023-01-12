@@ -1,7 +1,8 @@
 import { defineComponent, h, onBeforeUnmount, onMounted, ref } from 'vue'
 import { nanoid } from 'nanoid'
 import Mermaid from 'mermaid'
-// import type { MermaidConfig } from 'mermaid'
+import { mergeThemeConfig } from '../shared/theme'
+import type { MermaidPluginOptions } from '../shared/type'
 
 declare global {
   interface Window {
@@ -27,13 +28,14 @@ export default defineComponent({
     const el = ref<HTMLDivElement>()
     const content = ref('')
 
-    let configObj = {
+    let pluginConfig: MermaidPluginOptions = {
       startOnLoad: false,
       securityLevel: 'loose'
     }
     // parse the config string
     try {
-      configObj = JSON.parse(props.config?.replace(/\'/g, '\"') || '{}')
+      pluginConfig = JSON.parse(props.config?.replace(/\'/g, '\"') || '{}')
+
     } catch (e) {
       console.error(e)
     }
@@ -43,10 +45,12 @@ export default defineComponent({
     const render = async () => {
       try {
         const isDark = document.documentElement.classList.contains('dark')
+        const theme = isDark ? pluginConfig.darkTheme ?? 'dark' : pluginConfig.theme ?? 'default'
+        pluginConfig = mergeThemeConfig(pluginConfig)
+        // TODO: merge config
         Mermaid.mermaidAPI.initialize({
-          ...configObj,
-          // @ts-ignore
-          theme: configObj.theme ?? isDark ? 'dark' : 'default'
+          ...pluginConfig,
+          theme
         })
         content.value = await Mermaid.mermaidAPI.renderAsync(id, props.code)
       } catch (e) {

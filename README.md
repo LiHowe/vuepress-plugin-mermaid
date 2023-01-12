@@ -1,5 +1,9 @@
 # vuepress-plugin-mermaid-next
 
+![npm](https://img.shields.io/npm/v/vuepress-plugin-mermaid-next?style=flat-square)
+![npm](https://img.shields.io/npm/dm/vuepress-plugin-mermaid-next?style=flat-square)
+![mv](https://img.shields.io/static/v1?label=mermaid&message=^9.2.1&color=blue&style=flat-square)
+
 [中文说明](./README_ZH.md)
 
 > This plugin is only for [`vuepress-next`](https://vuepress.github.io)
@@ -49,8 +53,8 @@ Fully configuration fields can be find in [Mermaid - Configuration](https://merm
 
 ## Feature
 
-[x] Dark mode supported
-[x] mermaid config supported
-[ ] External Diagrams
-[ ] Preset themes
+-[x] Dark mode supported
+-[x] mermaid config supported
+-[ ] External Diagrams
+-[ ] Preset themes
 
