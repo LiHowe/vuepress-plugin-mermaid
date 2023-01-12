@@ -16,12 +16,13 @@ export default (md: any): void => {
     const [tokens, idx] = args
     const { info: languageType, content } = tokens[idx]
     if (content && languageType.trim() === 'mermaid') {
-      console.log('enter mermaid content language')
       return `
-      <h-mermaid 
-      code="${htmlEscape(content.trim())}"
-      config="${JSON.stringify(md.__mermaidConfig).replace(/\"/g, '\'')}"
-      ></h-mermaid>
+      <client-only>
+        <h-mermaid 
+        code="${htmlEscape(content.trim())}"
+        config="${JSON.stringify(md.__mermaidConfig).replace(/\"/g, '\'')}"
+        ></h-mermaid>
+      </client-only>
       `
     }
     return `${originFence(...args)}`

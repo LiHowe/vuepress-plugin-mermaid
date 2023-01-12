@@ -1,10 +1,8 @@
 # vuepress-plugin-mermaid-next
 
-[中文说明](./README_ZH.md)
+> 该插件仅适用于 [`vuepress-next`](https://vuepress.github.io)
 
-> This plugin is only for [`vuepress-next`](https://vuepress.github.io)
-
-## Installation
+## 安装
 
 ```shell
 # use npm
@@ -14,7 +12,7 @@ npm install mermaid vuepress-plugin-mermaid-next
 yarn add mermaid vuepress-plugin-mermaid-next
 ```
 
-## Usage
+## 使用
 
 ### `.vuepress/config.ts` or (`config.js`)
 
@@ -22,7 +20,7 @@ yarn add mermaid vuepress-plugin-mermaid-next
 export default {
   // ...
   plugins: [
-    // ...other plugins
+    // ... 其他插件
     ['mermaid-next', {}]
   ]
   // ...
@@ -32,22 +30,21 @@ import MermaidPlugin from 'vuepress-plugin-mermaid-next'
 export default {
   plugins: [
     MermaidPlugin({
-      // *optional, plugin option
+      // 插件选项
     })
   ]
 }
 ```
 
-### Customization
+### 自定义
 
-You can config mermaid by using plugin settings.
+你可以传入插件配置来自定义mermaid, 传入的配置将会用于 `mermaid.initialize()`
 
-The settings you configured will be use in `mermaid.initialize()`
-
-Fully configuration fields can be find in [Mermaid - Configuration](https://mermaid-js.github.io/mermaid/#/./Setup?id=mermaidapi-configuration-defaults)
+Mermaid 完整的配置字段可以查看 [Mermaid - Configuration](https://mermaid-js.github.io/mermaid/#/./Setup?id=mermaidapi-configuration-defaults)
 
 
-## Feature
+
+## 功能
 
 [x] Dark mode supported
 [x] mermaid config supported
