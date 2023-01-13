@@ -4,24 +4,20 @@
 ![npm](https://img.shields.io/npm/dm/vuepress-plugin-mermaid-next?style=flat-square)
 ![mv](https://img.shields.io/static/v1?label=mermaid&message=^9.2.1&color=blue&style=flat-square)
 
-> 该插件仅适用于 [`vuepress-next`](https://vuepress.github.io)
-
-[English Version](./README_EN.md)
+> This plugin is only for [`vuepress-next`](https://vuepress.github.io)
 
 ![dark theme](https://s2.loli.net/2023/01/13/NTaYjKcpb1L8wZt.gif)
 
-## 安装
+## Installation
 
 ```shell
 # use npm
 npm install mermaid vuepress-plugin-mermaid-next
 ```
 
-## 使用
+## Usage
 
-### 基础使用
-
-在 `.vuepress/config.ts` or (`config.js`) 中配置
+### `.vuepress/config.ts` or (`config.js`)
 
 ```typescript
 import { MermaidPlugin, Themes } from 'vuepress-plugin-mermaid-next'
@@ -29,33 +25,35 @@ import { MermaidPlugin, Themes } from 'vuepress-plugin-mermaid-next'
 export default {
   plugins: [
     MermaidPlugin({
-      theme: Themes.forest,
-      darkTheme: 'forest', // 非必填, 默认值为 `dark`
+      theme: Themes.sky,
+      darkTheme: Themes.forest, // not required, default value is `dark`
     }),
   ],
 }
 ```
 
-本插件支持明亮模式与暗黑模式独立配置, 需要在配置中表明 `darkTheme` 即可.
-如未提供 `darkTheme` 配置, 则使用 `dark` 作为默认暗黑主题.
+The plugin support out-of-the-box dark mode , you can specified dark mode theme with `darkTheme` field.
+If `darkTheme` is null or unavaliable value, it use `dark` as default.
 
-### Mermaid 配置
+### Mermaid config
 
-你可以传入插件配置来自定义mermaid, 传入的配置将会用于 `mermaid.initialize()`
+You can use the plugin config to customize the Mermaid, the config will be used for `mermaid.initialize(config)`
 
-Mermaid 完整的配置字段可以查看 [Mermaid - Configuration](https://mermaid-js.github.io/mermaid/#/./Setup?id=mermaidapi-configuration-defaults)
+The full list of Mermaid configuration can be found in [Mermaid - Configuration](https://mermaid-js.github.io/mermaid/#/./Setup?id=mermaidapi-configuration-defaults)
 
-### 主题配置
+### Theme config
 
-除了mermaid提供的开箱即用的主题外, 插件还补充了以下主题:
+Except Mermaid built-in theme, the plugin add some additional themes like:
 
-+ `sky`: 浅蓝色调
-![浅蓝色主题](https://s2.loli.net/2023/01/13/e8Y3Rqu4KowCjN6.png)
-+ `ocean`: 深蓝色调
++ `sky`: light blue
+![sky theme](https://s2.loli.net/2023/01/13/e8Y3Rqu4KowCjN6.png)
++ `ocean`: dark blue
 
-#### 自定义主题
+#### Theme customization
 
-如果你想修改内置主题的部分颜色, 可以在配置中添加 `themeVariables` 来覆盖主题颜色, 具体可覆盖颜色参考[官网](https://mermaid.js.org/config/theming.html)
+If you want to modify the part of theme colors, you can use `themeVariables` field to overwrite the theme color configuration.
+
+The full list of `themeVariables` can be found in [Mermaid Theming](https://mermaid.js.org/config/theming.html)
 
 ```ts
 import { MermaidPlugin, Themes } from 'vuepress-plugin-mermaid-next'
@@ -72,9 +70,7 @@ export default {
 }
 ```
 
-如果你想完全自定义一个主题, 本插件提供了 `registerTheme` 来自定义主题.
-
-API: `registerTheme(id, themeVariables)`
+Or you want to create a new theme, just use `registerTheme(id, themeVariables)`.
 
 ```ts
 import { MermaidPlugin, Themes, registerTheme } from 'vuepress-plugin-mermaid-next'
@@ -97,7 +93,7 @@ export default {
 }
 ```
 
-## 功能
+## Feature
 
 + [x] Dark mode supported
 + [x] mermaid config supported
