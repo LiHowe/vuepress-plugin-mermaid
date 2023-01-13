@@ -45,9 +45,16 @@ The full list of Mermaid configuration can be found in [Mermaid - Configuration]
 
 Except Mermaid built-in theme, the plugin add some additional themes like:
 
-+ `sky`: light blue
-![sky theme](https://s2.loli.net/2023/01/13/e8Y3Rqu4KowCjN6.png)
-+ `ocean`: dark blue
+#### Light Mode Themes
+
++ `Themes.sky`: light blue
+![浅蓝色主题](https://s2.loli.net/2023/01/13/e8Y3Rqu4KowCjN6.png)
++ `Themes.ocean`: dark blue
+
+#### Dark Mode Themes
+
++ `Themes.brown`
+![brown themes](https://s2.loli.net/2023/01/13/NGYc2A4e7BytmOR.png)
 
 #### Theme customization
 
