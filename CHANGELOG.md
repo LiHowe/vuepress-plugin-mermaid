@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.15](https://github.com/LiHowe/vuepress-plugin-mermaid/compare/v0.1.14...v0.1.15) (2023-01-13)
+
+
+### Features
+
+* preset theme:ocean [wip] ([4c69bae](https://github.com/LiHowe/vuepress-plugin-mermaid/commit/4c69bae9f6ad97d1806ea26127c65f9e52c92245))
+* preset themes ([c2fc4bb](https://github.com/LiHowe/vuepress-plugin-mermaid/commit/c2fc4bb77a27c24bc690e4e3101f0e8a2d91b226))
+
 ### [0.1.14](https://github.com/LiHowe/vuepress-plugin-mermaid/compare/v0.1.13...v0.1.14) (2023-01-12)
 
 ### [0.1.13-beta.0](https://github.com/LiHowe/vuepress-plugin-mermaid/compare/v0.1.10...v0.1.13) (2023-01-12)
