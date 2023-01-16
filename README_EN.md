@@ -48,13 +48,14 @@ Except Mermaid built-in theme, the plugin add some additional themes like:
 #### Light Mode Themes
 
 + `Themes.sky`: light blue
-![浅蓝色主题](https://s2.loli.net/2023/01/13/e8Y3Rqu4KowCjN6.png)
-+ `Themes.ocean`: dark blue
+![light blue](https://s2.loli.net/2023/01/13/e8Y3Rqu4KowCjN6.png)
 
 #### Dark Mode Themes
 
 + `Themes.brown`
-![brown themes](https://s2.loli.net/2023/01/13/NGYc2A4e7BytmOR.png)
+![brown theme](https://s2.loli.net/2023/01/13/NGYc2A4e7BytmOR.png)
++ `Themes.plain`
+![Plain theme](https://s2.loli.net/2023/01/16/XTPdMQw96qRnEfs.png)
 
 #### Theme customization
 
