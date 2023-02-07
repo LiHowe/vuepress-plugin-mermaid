@@ -53,12 +53,13 @@ Mermaid 完整的配置字段可以查看 [Mermaid - Configuration](https://merm
 
 + `Themes.sky`: 浅蓝色调
 ![浅蓝色主题](https://s2.loli.net/2023/01/13/e8Y3Rqu4KowCjN6.png)
-+ `Themes.ocean`: 深蓝色调
 
 #### 暗黑主题
 
 + `Themes.brown`
 ![棕色主题](https://s2.loli.net/2023/01/13/NGYc2A4e7BytmOR.png)
++ `Themes.plain`
+![朴素主题](https://s2.loli.net/2023/01/16/XTPdMQw96qRnEfs.png)
 
 #### 自定义主题
 

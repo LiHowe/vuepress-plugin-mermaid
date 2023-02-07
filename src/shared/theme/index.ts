@@ -8,9 +8,9 @@ enum Themes {
   base = 'base',
   null = 'null',
 
-  ocean = 'ocean',
   sky = 'sky',
   brown = 'brown',
+  plain = 'plain',
 }
 
 const builtinTheme: Themes[] = [
@@ -106,17 +106,7 @@ _registerTheme(Themes.sky, {
   darkMode: false,
 })
 
-// [light] - ocean
-_registerTheme(Themes.ocean, {
-  background: '#e3f2fd',
-  fontSize: '14px',
-  primaryColor: '#e3f2fd',
-  noteBkgColor: '#fffada',
-  noteTextColor: '#333',
-  darkMode: false,
-})
-
-// [dark] - charcoal
+// [dark] - brown
 _registerTheme(Themes.brown, {
   background: '#1A120B',
   fontSize: '14px',
@@ -128,6 +118,20 @@ _registerTheme(Themes.brown, {
   primaryBorderColor: '#D5CEA3',
   attributeBackgroundColorOdd: '#3C2A21',
   attributeBackgroundColorEven: '#3C2A21'
+})
+
+// [dark] - plain
+_registerTheme(Themes.plain, {
+  background: '#393E46',
+  fontSize: '14px',
+  primaryColor: '#393E46',
+  noteTextColor: '#393E46',
+  darkMode: false,
+  lineColor: '#EEEEEE',
+  actorBorder: '#EEEEEE',
+  primaryTextColor: '#EEEEEE',
+  attributeBackgroundColorOdd: '#43484e',
+  attributeBackgroundColorEven: '#393E46'
 })
 
 export {
